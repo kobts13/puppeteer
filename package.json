@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/kobts13/puppeteer/issues"
   },
-  "homepage": "https://github.com/kobts13/puppeteer#readme"
+  "homepage": "https://github.com/kobts13/puppeteer#readme",
+  "dependencies": {
+    "puppeteer": "^10.4.0"
+  },
+  "devDependencies": {
+    "prettier": "2.4.1"
+  }
 }
