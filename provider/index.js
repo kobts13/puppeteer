@@ -1,4 +1,4 @@
-const walk = require("walk.js");
+const walk = require("./walk");
 const path = require("path");
 const fs = require("fs");
 
@@ -13,7 +13,7 @@ function loadFilesFromPath(cfgPath) {
   configs = walk(cfgPath)
     .map((filePath) => {
       const name = filePath
-        .replace(/(.+\/)*/g, "")
+        .replace(/(.+[\\\/])*/g, "")
         .replace(/\.js$|\.json$/, "");
       return { [name]: require(filePath) };
     })
@@ -32,7 +32,7 @@ function filterEnvSensitiveConfigs() {
   });
 }
 
-exports = {
+module.exports = {
   load(userPath = null) {
     configs = {};
     const cfgPath = userPath || defaultPath;
@@ -47,4 +47,4 @@ exports = {
   },
 };
 
-exports.load();
+module.exports.load();

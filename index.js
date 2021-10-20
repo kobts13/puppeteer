@@ -1,4 +1,6 @@
 const puppeteer = require("puppeteer");
+process.env.NODE_ENV = "staging";
+const configProvider = require("./provider");
 
 (async () => {
   const browser = await puppeteer.launch();
@@ -9,3 +11,7 @@ const puppeteer = require("puppeteer");
 
   await browser.close();
 })();
+
+console.log(configProvider.get("general.system.input.type"));
+console.log(configProvider.get("env.token"));
+console.log(configProvider.get("config.config.color"));

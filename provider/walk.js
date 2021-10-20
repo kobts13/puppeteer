@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-function walk(dir) {
+module.exports = function walk(dir) {
   let results = [],
     list = fs.readdirSync(dir);
   list.forEach(function (file) {
@@ -14,6 +14,4 @@ function walk(dir) {
     }
   });
   return results;
-}
-
-exports = walk;
+};
