@@ -4,6 +4,8 @@ const fs = require("fs");
 
 let configs = {};
 const defaultPath = path.join(process.cwd(), "config");
+const defaultEnvKey = "defaultEnv_51d5c910_593e_4536_9925_bd092494fef8";
+const defaultEnv = "default";
 
 function loadFilesFromPath(cfgPath) {
   if (!fs.existsSync(cfgPath)) {
@@ -26,6 +28,9 @@ function loadFilesFromPath(cfgPath) {
 function filterEnvSensitiveConfigs() {
   const env = process.env.NODE_ENV;
   Object.keys(configs).forEach((key) => {
+    if (configs[key][defaultEnv] && !configs[defaultEnvKey]) {
+      configs[defaultEnvKey] = configs[key][defaultEnv];
+    }
     if (configs[key][env]) {
       configs[key] = configs[key][env];
     }
@@ -41,9 +46,16 @@ module.exports = {
     filterEnvSensitiveConfigs();
   },
   get(key) {
-    return key
+    const value = key
       .split(".")
       .reduce((prev, curr) => (prev ? prev[curr] : undefined), configs);
+    if (process.env.NODE_ENV && !value) {
+      key = defaultEnvKey + "." + key.split(".").slice(1).join(".");
+      return key
+        .split(".")
+        .reduce((prev, curr) => (prev ? prev[curr] : undefined), configs);
+    }
+    return value;
   },
 };
 

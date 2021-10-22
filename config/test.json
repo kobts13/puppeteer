@@ -1,0 +1,12 @@
+{
+  "default": {
+    "token": "test_default",
+    "property": "test_property_default"
+  },
+  "production": {
+    "token": "test_23983748367394"
+  },
+  "staging": {
+    "token": "test_fake_token"
+  }
+}
